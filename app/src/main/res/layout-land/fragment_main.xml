@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MoviesFragment"
+    tools:showIn="@layout/activity_main">
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/poster_gridView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:fastScrollEnabled="true"
+        android:numColumns="4"
+        android:padding="0dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/pageInc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+
+        android:layout_marginTop="220dp"
+        android:layout_marginLeft="0dp"
+        android:src="@drawable/ic_chevron_right_white_24dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/pageDec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="150dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_chevron_left_white_24dp"/>
+
+
+</RelativeLayout>
