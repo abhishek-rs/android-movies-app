@@ -25,6 +25,7 @@ import io.github.abhishek_rs.sheksmovies.data.MoviesContract;
 public class FetchMoviesTask extends AsyncTask<String, Void, String[]> {
     private final String LOG_TAG = FetchMoviesTask.class.getSimpleName();
     private final Context mContext;
+    private FragmentCallback mCallback;
 
     public FetchMoviesTask(Context context) {
         mContext = context;
@@ -32,18 +33,33 @@ public class FetchMoviesTask extends AsyncTask<String, Void, String[]> {
 
     }
 
+
+
+    public FetchMoviesTask(Context context, FragmentCallback fragmentCallback) {
+        mContext = context;
+        mCallback = fragmentCallback;
+    }
+
+    public interface FragmentCallback{
+        public void updateData(String[] results);
+    }
+
     @Override
     protected void onPostExecute(String[] result) {
         if (result != null) {
-            MoviesFragment.posterAdapter.clear();
+  /*          MoviesFragment.posterAdapter.clear();
 
             for(String posterStr : result) {
                 MoviesFragment.posterAdapter.add(posterStr);
                 Log.d("On post execute", posterStr);
                 // Toast.makeText(getActivity(), posterStr, Toast.LENGTH_LONG).show();
             }
+*/
+
+        mCallback.updateData(result);
 
         }
+
 
     }
 

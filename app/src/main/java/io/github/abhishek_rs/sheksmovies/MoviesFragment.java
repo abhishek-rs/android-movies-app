@@ -17,15 +17,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MoviesFragment extends Fragment {
+public class MoviesFragment extends Fragment implements FetchMoviesTask.FragmentCallback {
     public static PosterAdapter posterAdapter;
     private int pageNo;
     public static int IS_FAVORITE;
     public static List<Movie> movies = new ArrayList<Movie>();
     FloatingActionButton page_down, page_up;
+
+   // public FetchMoviesTask.FragmentCallback fg = (FetchMoviesTask.FragmentCallback) getActivity();
+
+    @Override
+    public void updateData(String[] results) {
+        if (results != null) {
+            posterAdapter.clear();
+            for(String posterStr : results) {
+                posterAdapter.add(posterStr);
+            }
+        }
+
+    }
+
+
+
     private void updateList(){
         movies.clear();
-        FetchMoviesTask task = new FetchMoviesTask(getActivity());
+        FetchMoviesTask task = new FetchMoviesTask(getActivity(), this);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         String sortBy = prefs.getString(getString(R.string.pref_sortBy_list_key),getString(R.string.pref_sortBy_list_default));
@@ -140,7 +156,7 @@ public class MoviesFragment extends Fragment {
 
         GridView gridView = (GridView) rootView.findViewById(R.id.poster_gridView);
         gridView.setAdapter(posterAdapter);
-
+        updateList();
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
