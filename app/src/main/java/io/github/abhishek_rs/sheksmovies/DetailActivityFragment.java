@@ -1,5 +1,6 @@
 package io.github.abhishek_rs.sheksmovies;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -61,7 +62,7 @@ public class DetailActivityFragment extends Fragment {
         mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
         // Fetch and store ShareActionProvider
         // mShareActionProvider = (ShareActionProvider) item.getActionProvider();
-            mShareActionProvider.setShareIntent(createShareForecastIntent());
+      //mShareActionProvider.setShareIntent(createShareForecastIntent());
     }
 
     public Intent createShareForecastIntent() {
@@ -79,7 +80,7 @@ public class DetailActivityFragment extends Fragment {
         View rootview = inflater.inflate(R.layout.fragment_detail, container, false);
         Intent intent = getActivity().getIntent();
         setHasOptionsMenu(true);
-        Movie m = intent.getExtras().getParcelable("movie");
+
         if (intent != null && intent.hasExtra("movie")) {
         /*    String moviename = intent.getStringExtra("title");
             String plot = intent.getStringExtra("plot");
@@ -95,6 +96,7 @@ public class DetailActivityFragment extends Fragment {
             Picasso.with(getActivity()).load(intent.getStringExtra("backdrop")).resize(720,360).into((ImageView) rootview.findViewById(R.id.detail_imageView));
 
         */
+            Movie m = intent.getExtras().getParcelable("movie");
             // String v = m.toString();
             getActivity().setTitle(m.title);
             // Toast.makeText(getActivity(), m.title, Toast.LENGTH_SHORT).show();
@@ -102,7 +104,7 @@ public class DetailActivityFragment extends Fragment {
             ((TextView) rootview.findViewById(R.id.detail_plot_textview)).setText(m.plotSummary);
             ((TextView) rootview.findViewById(R.id.detail_rating_textview)).setText(Double.toString(m.rating) + "/10");
             ((TextView) rootview.findViewById(R.id.detail_votes_textview)).setText(Integer.toString(m.numberVotes));
-            ((TextView) rootview.findViewById(R.id.detail_release_date_textview)).setText(m.release_date);
+            ((TextView) rootview.findViewById(R.id.detail_release_date_textview)).setText("(Release - " + m.release_date +" )");
 
 /*
             LinearLayout trailers = (LinearLayout) rootview.findViewById(R.id.detail_trailer_layout);
@@ -185,6 +187,7 @@ public class DetailActivityFragment extends Fragment {
             try {
                 getDataFromJson(resultStrings[0], FETCH_TRAILER_LIST);
                 getDataFromJson(resultStrings[1], FETCH_REVIEW_LIST);
+                mShareActionProvider.setShareIntent(createShareForecastIntent());
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "Hi! check out this awesome trailer - " + trailers.get(0).url);
             } catch (Exception e) {
                 Log.e("FETCHING trailers", "FAILED!!");
@@ -199,6 +202,12 @@ public class DetailActivityFragment extends Fragment {
                 final Button trailerButton = new Button(getActivity());
                 final Trailer thistrailer = trailers.get(i);
                 trailerButton.setText(thistrailer.name);
+                trailerButton.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                float scale = getResources().getDisplayMetrics().density;
+                int dpAsPixels = (int) (10*scale + 0.5f);
+                trailerButton.setPadding(dpAsPixels, dpAsPixels, dpAsPixels, dpAsPixels);
+                trailerButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                trailerButton.setTextColor(getResources().getColor(R.color.colorWhite));
                 trailerButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -224,6 +233,7 @@ public class DetailActivityFragment extends Fragment {
                 final TextView reviewContentView = new TextView(getActivity());
                 final Review thisreview = reviews.get(i);
                 reviewAuthorView.setText("By " + thisreview.author + ":");
+
                 reviewlayout.addView(reviewAuthorView);
                 reviewContentView.setText(thisreview.content);
                 reviewlayout.addView(reviewContentView);

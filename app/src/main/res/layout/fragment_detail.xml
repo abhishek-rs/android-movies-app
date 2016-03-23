@@ -10,20 +10,31 @@
     android:orientation="vertical"
     tools:context="io.github.abhishek_rs.sheksmovies.DetailActivityFragment"
     tools:showIn="@layout/activity_detail">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
  <!--   <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center">
- -->   <ImageView
-        android:id="@+id/detail_imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+ -->
+
+        <ImageView
+            android:id="@+id/detail_imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:orientation="vertical"
+            android:padding="5dp"
+            >
+
 
             <TextView
                 android:id="@+id/detail_title_textview"
@@ -34,114 +45,109 @@
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:elegantTextHeight="true"
-                android:background="#ffffff"
+                android:textColor="#ffffff"
                 android:textStyle="bold"
                 android:textSize="@dimen/abc_text_size_headline_material"
-                android:textColor="#000000"
-                android:padding="10dp"
+                android:paddingBottom="2dp"
                 />
-
-        <TextView
-        android:id="@+id/detail_release_date_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:textSize="20sp"
-        android:layout_weight="1"
-        android:layout_gravity="center"
-        android:elegantTextHeight="true"
-        android:padding="5dp"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        />
-        <!-- /LinearLayout  -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1">
-                <TextView
-                    android:text="Rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:textSize="20sp"
-
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:elegantTextHeight="true"
-                    android:padding="5dp"
-                    android:textColor="#000000"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    />
             <TextView
-                android:id="@+id/detail_rating_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:textSize="20sp"
-
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:elegantTextHeight="true"
-                android:padding="5dp"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1">
-                <TextView
-                    android:text="Total Votes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:textSize="20sp"
-
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:elegantTextHeight="true"
-                    android:padding="5dp"
-                    android:textColor="#000000"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    />
-            <TextView
-                android:id="@+id/detail_votes_textview"
+                android:id="@+id/detail_release_date_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:textSize="20sp"
-
+                android:textSize="15sp"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:elegantTextHeight="true"
-                android:padding="5dp"
-                android:textColor="#000000"
+                android:textColor="#ffffff"
                 android:textStyle="bold"
-                android:textAlignment="center"
-                />
+                android:paddingBottom="5dp"
+                android:textAlignment="center" />
+        <!-- /LinearLayout  -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:text="Rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:elegantTextHeight="true"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold"
+                        android:textAlignment="center" />
+
+                    <TextView
+                    android:id="@+id/detail_rating_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:elegantTextHeight="true"
+                    android:padding="2dp"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:text="Total Votes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:elegantTextHeight="true"
+
+                        android:textColor="#ffffff"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                    />
+
+
+                    <TextView
+                    android:id="@+id/detail_votes_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:elegantTextHeight="true"
+                    android:padding="2dp"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    />
+
+                </LinearLayout>
 
             </LinearLayout>
-        </LinearLayout>
     <!-- LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical" -->
+        </LinearLayout>
 
-    <TextView
+        <TextView
         android:id="@+id/detail_plot_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -156,23 +162,29 @@
         android:textStyle="italic"
         />
 <!-- /LinearLayout -->
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@color/colorWhite"
             android:id="@+id/detail_trailer_layout">
 
             <TextView
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
                 android:textAlignment="center"
                 android:background="#ffffff"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:elegantTextHeight="true"
-                android:padding="10dp"
+                android:textStyle="bold"
+                android:textSize="@dimen/abc_text_size_headline_material"
+                android:padding="5dp"
                 android:textColor="#000000"
                 android:text="@string/trailers_title"
                 />
@@ -180,22 +192,28 @@
             </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:padding="5dp"
+            android:background="@color/colorWhite"
+            android:textSize="15sp"
+            android:textColor="#000000"
             android:id="@+id/detail_reviews_layout">
 
             <TextView
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+
                 android:textAlignment="center"
                 android:background="#ffffff"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:elegantTextHeight="true"
-                android:padding="10dp"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:textSize="@dimen/abc_text_size_headline_material"
                 android:textColor="#000000"
                 android:text="@string/reviews_title"
                 />
