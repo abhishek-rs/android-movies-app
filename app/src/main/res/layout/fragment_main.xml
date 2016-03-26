@@ -19,6 +19,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:fastScrollEnabled="true"
+        android:listSelector="@drawable/touch_selector"
         android:numColumns="auto_fit"
         android:padding="0dp" />
 
@@ -26,21 +27,23 @@
         android:id="@+id/pageInc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp"
 
-        android:layout_marginTop="440dp"
-        android:layout_marginLeft="0dp"
+
         android:src="@drawable/ic_chevron_right_white_24dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/pageDec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="360dp"
+        android:layout_marginRight="20dp"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+
+        android:layout_marginBottom="20dp"
         android:src="@drawable/ic_chevron_left_white_24dp"/>
 
 </RelativeLayout>

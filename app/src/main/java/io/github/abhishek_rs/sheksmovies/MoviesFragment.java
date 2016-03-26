@@ -1,6 +1,5 @@
 package io.github.abhishek_rs.sheksmovies;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -23,6 +22,9 @@ public class MoviesFragment extends Fragment implements FetchMoviesTask.Fragment
     public static int IS_FAVORITE;
     public static List<Movie> movies = new ArrayList<Movie>();
     FloatingActionButton page_down, page_up;
+    private static final String SELECTED_KEY = "selected_position";
+    public int mPosition = GridView.INVALID_POSITION;
+    public GridView gridView;
 
    // public FetchMoviesTask.FragmentCallback fg = (FetchMoviesTask.FragmentCallback) getActivity();
 
@@ -37,7 +39,9 @@ public class MoviesFragment extends Fragment implements FetchMoviesTask.Fragment
 
     }
 
-
+public interface Callback{
+    public void onItemSelected(Movie movie, int position);
+}
 
     private void updateList(){
         movies.clear();
@@ -85,14 +89,32 @@ public class MoviesFragment extends Fragment implements FetchMoviesTask.Fragment
     public void onStart() {
         super.onStart();
         updateList();
+        if (mPosition != GridView.INVALID_POSITION) {
+            // If we don't need to restart the loader, and there's a desired position to restore
+            // to, do so now.
+            gridView.smoothScrollToPosition(mPosition);
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
         updateList();
+        if (mPosition != GridView.INVALID_POSITION) {
+            // If we don't need to restart the loader, and there's a desired position to restore
+            // to, do so now.
+            gridView.smoothScrollToPosition(mPosition);
+        }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if(mPosition != GridView.INVALID_POSITION){
+            outState.putInt(SELECTED_KEY, mPosition);
+        }
+
+        super.onSaveInstanceState(outState);
+    }
 
     public MoviesFragment() {
         // Log.v("Hello", "MAN");
@@ -106,6 +128,11 @@ public class MoviesFragment extends Fragment implements FetchMoviesTask.Fragment
         page_down = (FloatingActionButton) rootView.findViewById(R.id.pageInc);
         page_up = (FloatingActionButton) rootView.findViewById(R.id.pageDec);
 
+        if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)) {
+                        // The listview probably hasn't even been populated yet.  Actually perform the
+                                // swapout in onLoadFinished.
+                                        mPosition = savedInstanceState.getInt(SELECTED_KEY);
+                    }
 
 
 
@@ -154,7 +181,7 @@ public class MoviesFragment extends Fragment implements FetchMoviesTask.Fragment
 
         posterAdapter = new PosterAdapter(getActivity(), new ArrayList<String>()/* Arrays.asList(data) */);
 
-        GridView gridView = (GridView) rootView.findViewById(R.id.poster_gridView);
+        gridView = (GridView) rootView.findViewById(R.id.poster_gridView);
         gridView.setAdapter(posterAdapter);
         updateList();
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -177,9 +204,13 @@ public class MoviesFragment extends Fragment implements FetchMoviesTask.Fragment
                         .putExtra("rating", rating)
                         .putExtra("votes", votes)
                         .putExtra("release_date", release_date);  */
-                Intent detailIntent = new Intent(getActivity(),DetailActivity.class).putExtra("movie", movies.get(position)).putExtra("position", position);
+             //   Intent detailIntent = new Intent(getActivity(),DetailActivity.class).putExtra("movie", movies.get(position)).putExtra("position", position);
 
-                startActivity(detailIntent);
+    //            startActivity(detailIntent);
+
+                ((Callback) getActivity())
+                        .onItemSelected(movies.get(position), position);
+                mPosition = position;
             }
         });
 

@@ -29,8 +29,6 @@ public class FetchMoviesTask extends AsyncTask<String, Void, String[]> {
 
     public FetchMoviesTask(Context context) {
         mContext = context;
-        //mForecastAdapter = forecastAdapter;
-
     }
 
 
@@ -47,20 +45,8 @@ public class FetchMoviesTask extends AsyncTask<String, Void, String[]> {
     @Override
     protected void onPostExecute(String[] result) {
         if (result != null) {
-  /*          MoviesFragment.posterAdapter.clear();
-
-            for(String posterStr : result) {
-                MoviesFragment.posterAdapter.add(posterStr);
-                Log.d("On post execute", posterStr);
-                // Toast.makeText(getActivity(), posterStr, Toast.LENGTH_LONG).show();
-            }
-*/
-
         mCallback.updateData(result);
-
         }
-
-
     }
 
     @Override
@@ -88,9 +74,6 @@ public class FetchMoviesTask extends AsyncTask<String, Void, String[]> {
                 .appendQueryParameter(PARAM_PAGENO,pageNo)
                 .appendQueryParameter(PARAM_APPID,APP_ID).build();
         String myUrl = uri.toString();
-       // String myUrl = formUrl(pageNo, sortBy, FETCH_MOVIE_LIST, 0);
-     //   Log.d("URL", myUrl);
-     //   movieJsonStr = getStringFromUrl(myUrl);
 
         try {
 

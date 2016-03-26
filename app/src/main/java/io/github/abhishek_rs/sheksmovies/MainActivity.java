@@ -8,9 +8,29 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MoviesFragment.Callback{
     private static final String DETAILFRAGMENT_TAG = "DFTAG";
-    private boolean mTwoPane;
+    public boolean mTwoPane;
+
+    @Override
+    public void onItemSelected(Movie movie, int position){
+        if(mTwoPane){
+            Bundle args = new Bundle();
+            args.putParcelable("movie", movie);
+            args.putInt("position", position);
+            args.putInt("twoPane", 1);
+            DetailActivityFragment fragment = new DetailActivityFragment();
+            fragment.setArguments(args);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.movie_detail_container, fragment, DETAILFRAGMENT_TAG).commit();
+        }
+        else
+        {
+            Intent detailIntent = new Intent(this,DetailActivity.class).putExtra("movie", movie).putExtra("position", position);
+            startActivity(detailIntent);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

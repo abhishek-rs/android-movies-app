@@ -15,6 +15,7 @@
         android:id="@+id/poster_gridView"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
+        android:listSelector="@drawable/touch_selector"
         android:layout_alignParentStart="true"
         android:fastScrollEnabled="true"
         android:numColumns="auto_fit"
@@ -24,22 +25,23 @@
         android:id="@+id/pageInc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp"
 
-        android:layout_marginTop="220dp"
-        android:layout_marginLeft="0dp"
+
         android:src="@drawable/ic_chevron_right_white_24dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/pageDec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginRight="20dp"
         android:layout_alignParentRight="true"
-        android:src="@drawable/ic_chevron_left_white_24dp"/>
+        android:layout_alignParentBottom="true"
 
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/ic_chevron_left_white_24dp"/>
 
 </RelativeLayout>

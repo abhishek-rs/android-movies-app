@@ -1,14 +1,4 @@
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/movie_detail_container"
-    android:name="io.github.abhishek_rs.sheksmovies.DetailActivityFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:layout="@layout/fragment_detail" />
 
-         <!--
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -20,4 +10,3 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:ignore="MergeRootFrame" />
 
-    -->

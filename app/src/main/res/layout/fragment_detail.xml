@@ -15,12 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
- <!--   <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center">
- -->
+
 
         <ImageView
             android:id="@+id/detail_imageView"
@@ -74,7 +69,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:id="@+id/detail_rating_layout">
 
                     <TextView
                         android:text="Rating"
@@ -107,7 +103,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:id="@+id/detail_votes_layout">
 
                     <TextView
                         android:text="Total Votes"
@@ -195,7 +192,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="5dp"
+            android:layout_margin="10dp"
             android:background="@color/colorWhite"
             android:textSize="15sp"
             android:textColor="#000000"
