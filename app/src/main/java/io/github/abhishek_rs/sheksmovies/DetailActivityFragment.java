@@ -55,7 +55,8 @@ public class DetailActivityFragment extends Fragment {
     private final int FETCH_TRAILER_LIST = 2;
     private final int FETCH_REVIEW_LIST = 1;
     Intent shareIntent = new Intent(Intent.ACTION_SEND);
-
+    private int IS_ALREADY_IN_FAVORITES = 0;
+    private int movieID;
     private ShareActionProvider mShareActionProvider;
 
     public DetailActivityFragment() {
@@ -68,6 +69,15 @@ public class DetailActivityFragment extends Fragment {
       inflater.inflate(R.menu.menu_detail, menu);
         MenuItem item = menu.findItem(R.id.action_shared);
         mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+      MenuItem favorite = menu.findItem(R.id.action_favorite);
+      if(!isAlreadyInFavorites(movieID)){
+          favorite.setIcon(getResources().getDrawable(R.drawable.ic_favorite_border_white_24dp));
+      }
+      else {
+          favorite.setIcon(getResources().getDrawable(R.drawable.ic_favorite_white_24dp));
+          Log.d("IN MENU", "set to block heart");
+      }
+
         // Fetch and store ShareActionProvider
         // mShareActionProvider = (ShareActionProvider) item.getActionProvider();
       //mShareActionProvider.setShareIntent(createShareForecastIntent());
@@ -82,9 +92,45 @@ public class DetailActivityFragment extends Fragment {
         return shareIntent;
     }
 
+
+    private boolean isAlreadyInFavorites(int movieid){
+        int count;
+        try {
+            //(this.getContentResolver().query(uri, null, null, null, null, null)).getCount();
+            count = (getActivity()
+                    .getContentResolver()
+                    .query(MoviesContract.FavoritesEntry.CONTENT_URI,
+                            null,
+                            MoviesContract.FavoritesEntry.COLUMN_MOVIE_ID + "= ?",
+                            new String[]{Integer.toString(movieid)},
+                            null)).getCount();
+
+
+        }
+        catch (Exception e) {
+
+            count = 0;
+        }
+
+        if (count == 0 )
+        {
+            IS_ALREADY_IN_FAVORITES = 0;
+            return false;
+        }
+        else{
+            IS_ALREADY_IN_FAVORITES = 1;
+            return true;
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        if (id == android.R.id.home) {
+            getActivity().finish();
+            return true;
+        }
+
         if (id == R.id.action_favorite) {
             Bundle arguments = getArguments();
             Movie m = arguments.getParcelable("movie");
@@ -95,7 +141,7 @@ public class DetailActivityFragment extends Fragment {
             Log.d ("URI", uri.toString());
 
 
-            try {
+           /* try {
                 //(this.getContentResolver().query(uri, null, null, null, null, null)).getCount();
                 count = (getActivity()
                         .getContentResolver()
@@ -111,8 +157,8 @@ public class DetailActivityFragment extends Fragment {
 
                 count = 0;
             }
-
-            if (count == 0 || MoviesFragment.IS_FAVORITE == 1)
+*/
+            if (!isAlreadyInFavorites(movieID) || MoviesFragment.IS_FAVORITE == 1)
             {
                 insertIntoDBTask idb = new insertIntoDBTask(getActivity(), m);
                 idb.execute();
@@ -121,15 +167,16 @@ public class DetailActivityFragment extends Fragment {
                     saveImageToLocal(m.poster, Integer.toString(m.id) + "a", "poster");
                     saveImageToLocal(m.backdrop, Integer.toString(m.id) + "b", "backdrop");
                     Toast.makeText(getActivity(), m.title + " has been added to favorites!", Toast.LENGTH_LONG).show();
-
-
+                    item.setIcon(getResources().getDrawable(R.drawable.ic_favorite_white_24dp));
+                    IS_ALREADY_IN_FAVORITES = 1;
 
                 } else {
                     Toast.makeText(getActivity(), m.title + " has been removed from favorites!", Toast.LENGTH_LONG).show();
 
                     MoviesFragment.posterAdapter.remove(MoviesFragment.posterAdapter.getItem(pos));
                     MoviesFragment.posterAdapter.setNotifyOnChange(true);
-
+                    item.setIcon(getResources().getDrawable(R.drawable.ic_favorite_border_white_24dp));
+                    IS_ALREADY_IN_FAVORITES = 0;
                 }
             }
             else {
@@ -237,6 +284,7 @@ public class DetailActivityFragment extends Fragment {
         setHasOptionsMenu(true);
         Bundle arguments = getArguments();
 
+
       /*  if (intent != null && intent.hasExtra("movie")) {
             String moviename = intent.getStringExtra("title");
             String plot = intent.getStringExtra("plot");
@@ -262,9 +310,10 @@ public class DetailActivityFragment extends Fragment {
             ((TextView) rootview.findViewById(R.id.detail_rating_textview)).setText(Double.toString(m.rating) + "/10");
             ((TextView) rootview.findViewById(R.id.detail_votes_textview)).setText(Integer.toString(m.numberVotes));
             ((TextView) rootview.findViewById(R.id.detail_release_date_textview)).setText("(Release - " + m.release_date +" )");
+            movieID = m.id;
             FetchTrailerAndReviewsTask fTask = new FetchTrailerAndReviewsTask(getActivity(), rootview);
             fTask.execute(new String[]{Integer.toString(m.id)});
-
+            isAlreadyInFavorites(m.id);
             if (MoviesFragment.IS_FAVORITE == 1) {
                 Picasso.with(getActivity()).load(new File(m.backdrop)).resize(720, 360).into((ImageView) rootview.findViewById(R.id.detail_imageView));
             } else {
